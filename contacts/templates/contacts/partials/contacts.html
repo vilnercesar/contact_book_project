@@ -10,7 +10,7 @@
     <tbody>
       <tr>
         <td>
-          <a href="#"> {{contact.first_name}}</a>
+          <a href="{% url 'contact' contact.id %} "> {{contact.first_name}}</a>
         </td>
         <td>{{contact.last_name}}</td>
         <td>{{contact.cell_phone}}</td>

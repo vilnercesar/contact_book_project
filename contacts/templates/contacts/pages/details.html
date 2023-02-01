@@ -1,0 +1,28 @@
+{% extends 'global/base.html' %}
+{% block content %}
+<h1 class="mt-5">{{contact}}</h1>
+  <dl>
+    <dt>ID</dt>
+    <dd>{{contact.id}}</dd>
+
+    <dt>Telefone</dt>
+    <dd>{{contact.cell_phone}}</dd>
+
+    <dt>E-mail</dt>
+    <dd>{{contact.email}}</dd>
+
+    <dt>Data criação</dt>
+    <dd>{{contact.created_date}}</dd>
+
+    <dt>Categoria</dt>
+    <dd>{{contact.category.name}}</dd>
+
+    <dt>Descrição</dt>
+    <dd>
+     {{contact.description}}
+    </dd>
+  </dl>
+
+{% endblock content %}
+
+
