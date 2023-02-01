@@ -1,0 +1,10 @@
+{% extends 'global/base.html' %}
+ {% block content %}
+ <h1 class="mt-5">Minha agenda</h1>
+ {% for contact in contacts %}
+  {% include 'contacts/partials/contacts.html' %}
+ {% endfor %}
+ {% endblock content %}
+
+
+
