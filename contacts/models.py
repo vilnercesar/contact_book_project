@@ -33,6 +33,7 @@ class Contact(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     description = models.TextField(max_length=165)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    is_publish = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.first_name

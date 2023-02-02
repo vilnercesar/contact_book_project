@@ -1,10 +1,34 @@
 {% extends 'global/base.html' %}
- {% block content %}
+ 
+{% block content %}
  <h1 class="mt-5">Minha agenda</h1>
- {% for contact in contacts %}
-    {% include 'contacts/partials/contacts.html' %}
- {% endfor %}
+
+ <table class="table">
+   <thead>
+     <tr>
+       <th>ID</th>
+       <th>Nome</th>
+       <th>Sobrenome</th>
+       <th>Telefone</th>
+       <th>Categoria</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+      {% for contact in contacts %} 
+      <td>{{contact.id}}</td>
+       <td>
+         <a href="{% url 'contact' contact.id %} "> {{contact.first_name}}</a>
+       </td>
+       <td>{{contact.last_name}}</td>
+       <td>{{contact.cell_phone}}</td>
+       <td>{{contact.category.name}}</td>
+     </tr>
+     {% endfor %}
+   </tbody>
+ </table>
+ 
+
+ {% include 'contacts/partials/paginate.html' %}
  {% endblock content %}
-
-
 
