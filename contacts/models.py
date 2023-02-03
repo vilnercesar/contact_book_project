@@ -34,6 +34,8 @@ class Contact(models.Model):
     description = models.TextField(max_length=165)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     is_publish = models.BooleanField(default=True)
+    profile_picture = models.ImageField(
+        upload_to='contacts/profile_pictures/%Y/%m/%d/', blank=True)
 
     def __str__(self) -> str:
         return self.first_name

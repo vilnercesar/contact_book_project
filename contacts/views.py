@@ -1,8 +1,8 @@
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
-from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Contact
 
@@ -37,14 +37,19 @@ def search(request):
     fake_fields = Concat('first_name', Value(
         ''), 'last_name')
 
-    if term is None:
-        raise Http404()
+    if term is None or not term:
+        messages.add_message(request, messages.ERROR,
+                             'O campo busca não pode ficar vazio')
+        return redirect('index')
 
     contacts = Contact.objects.annotate(
         full_name=fake_fields
     ).filter(Q(full_name__icontains=term) | Q(cell_phone__icontains=term),
              is_publish=True)
+    if not contacts:
+        messages.add_message(request,messages.ERROR, 'Nenhum paramêtro encontrado')
 
+       
     paginator = Paginator(contacts, 3)
     page = request.GET.get('p')
     contacts = paginator.get_page(page)
