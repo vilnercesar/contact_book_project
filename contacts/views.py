@@ -47,9 +47,8 @@ def search(request):
     ).filter(Q(full_name__icontains=term) | Q(cell_phone__icontains=term),
              is_publish=True)
     if not contacts:
-        messages.add_message(request,messages.ERROR, 'Nenhum paramêtro encontrado')
+        messages.add_message(request, messages.ERROR, 'Nenhum paramêtro encontrado')  # noqa: E501
 
-       
     paginator = Paginator(contacts, 3)
     page = request.GET.get('p')
     contacts = paginator.get_page(page)
