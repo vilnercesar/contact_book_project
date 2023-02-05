@@ -1,4 +1,6 @@
 {% extends 'global/base.html' %}
 {%block content%}
-    DASHBOARD
+{% include 'contacts/partials/message.html' %}
+<h1 class= "mt-3 mb-3">Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
+
 {%endblock%}
