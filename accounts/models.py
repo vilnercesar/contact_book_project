@@ -1,3 +1,11 @@
-from django.db import models
+from django import forms
 
-# Create your models here.
+from contacts.models import Contact
+
+# from django.db import models
+
+
+class FormContact(forms.ModelForm):
+    class Meta:
+        model = Contact
+        exclude = ('is_publish', 'created_date')

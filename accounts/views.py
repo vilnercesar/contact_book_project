@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.shortcuts import redirect, render
 
+from .models import FormContact
+
 
 # Create your views here.
 def login(request):
@@ -86,4 +88,24 @@ def signup(request):
 
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    if request.method != 'POST':
+        form = FormContact()
+        return render(request, 'accounts/dashboard.html', {'form': form})
+
+    form = FormContact(request.POST, request.FILES)
+
+    if not form.is_valid():
+        messages.error(request, 'Error submitting form')
+        form = FormContact(request.POST)
+        return render(request, 'accounts/dashboard.html', {'form': form})
+
+    description = request.POST.get('description')
+
+    if len(description) < 5:
+        messages.error(request, 'Short description')
+        form = FormContact(request.POST)
+        return render(request, 'accounts/dashboard.html', {'form': form})
+
+    form.save()
+    messages.success(request, 'Sucessfully contact created')
+    return redirect('dashboard')

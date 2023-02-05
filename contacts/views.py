@@ -12,7 +12,7 @@ from .models import Contact
 def index(request):
 
     contacts = Contact.objects.filter(is_publish=True).order_by('-id')
-    paginator = Paginator(contacts, 3)
+    paginator = Paginator(contacts, 5)
     page = request.GET.get('p')
     contacts = paginator.get_page(page)
     return render(request, 'contacts/pages/index.html', context={
