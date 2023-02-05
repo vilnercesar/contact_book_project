@@ -1,5 +1,7 @@
 {% extends 'global/base.html' %}
+{% block title%}{{ contact.first_name }} {{ contact.last_name }} | {% endblock title %}
 {% block content %}
+
 <h1 class="mt-5">{{contact}}</h1>
  {% if contact.profile_picture %}
   <p>
@@ -12,19 +14,19 @@
   <dt>ID</dt>
   <dd>{{contact.id}}</dd>
 
-  <dt>Telefone</dt>
+  <dt>Cell Phone</dt>
   <dd>{{contact.cell_phone}}</dd>
 
   <dt>E-mail</dt>
   <dd>{{contact.email}}</dd>
 
-  <dt>Data criação</dt>
+  <dt>Created Date</dt>
   <dd>{{contact.created_date|date:'d/m/Y H:i' }}</dd>
 
-  <dt>Categoria</dt>
+  <dt>Category</dt>
   <dd>{{contact.category.name}}</dd>
 
-  <dt>Descrição</dt>
+  <dt>Description</dt>
   <dd>
     {{contact.description}}
   </dd>

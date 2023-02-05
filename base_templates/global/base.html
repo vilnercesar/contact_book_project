@@ -3,7 +3,7 @@
 <html lang="pt">
 
 <head>
-    <title>Agenda</title>
+     <title> {% block title %}{% endblock title %} Contact Book</title>
     {% include 'contacts/partials/head.html' %}
 </head>
 
@@ -21,7 +21,7 @@
                   <input class="form-control"
                          type="search" value="{{request.GET.term}}"
                          id="search-input"
-                         placeholder="Digite sua pesquisa"
+                         placeholder="Type your search"
                          name="term">
                   {% include 'contacts/partials/message.html' %}  
                 </div>
