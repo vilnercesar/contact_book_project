@@ -8,4 +8,4 @@ from contacts.models import Contact
 class FormContact(forms.ModelForm):
     class Meta:
         model = Contact
-        exclude = ('is_publish', 'created_date')
+        exclude = ('is_publish', 'created_date', 'author')

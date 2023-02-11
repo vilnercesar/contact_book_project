@@ -24,12 +24,12 @@ def login(request):
     else:
         auth.login(request, user)
         messages.success(request, 'Login successfully')
-        return redirect('dashboard')
+        return redirect('index')
 
 
 def logout(request):
     auth.logout(request)
-    return redirect('index')
+    return redirect('login')
 
 
 def signup(request):
@@ -106,6 +106,9 @@ def dashboard(request):
         form = FormContact(request.POST)
         return render(request, 'accounts/dashboard.html', {'form': form})
 
+    contact = form.save(commit=False)
+    contact.author = request.user
+    contact.save()
     form.save()
     messages.success(request, 'Sucessfully contact created')
     return redirect('dashboard')

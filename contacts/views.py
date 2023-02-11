@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
@@ -9,14 +10,19 @@ from .models import Contact
 # Create your views here.
 
 
+@login_required(redirect_field_name='login')
 def index(request):
 
-    contacts = Contact.objects.filter(is_publish=True).order_by('-id')
+    user_id = request.user.id
+    contacts = Contact.objects.filter(
+        author__id=user_id, is_publish=True).order_by('-id')
     paginator = Paginator(contacts, 5)
     page = request.GET.get('p')
     contacts = paginator.get_page(page)
+
     return render(request, 'contacts/pages/index.html', context={
-        'contacts': contacts}
+        'contacts': contacts,
+        'paginator': paginator}
 
     )
 
@@ -45,7 +51,7 @@ def search(request):
     contacts = Contact.objects.annotate(
         full_name=fake_fields
     ).filter(Q(full_name__icontains=term) | Q(cell_phone__icontains=term),
-             is_publish=True)
+             is_publish=True, author__id=request.user.id)
     if not contacts:
         messages.add_message(request, messages.ERROR, 'Nenhum paramêtro encontrado')  # noqa: E501
 

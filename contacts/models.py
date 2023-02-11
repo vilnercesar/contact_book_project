@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -26,8 +27,9 @@ class Category(models.Model):
 
 
 class Contact(models.Model):
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     first_name = models.CharField(max_length=65)
-    last_name = models.CharField(max_length=65, blank=True)
+    last_name = models.CharField(max_length=65)
     cell_phone = models.CharField(max_length=65)
     email = models.CharField(max_length=65, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
